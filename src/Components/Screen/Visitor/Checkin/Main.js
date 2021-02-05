@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Main = () => {
+const Checkin = () => {
   return (
     <div>
-      방문자 체크인
+      방문자 체크인 완료 화면
       
     </div>
   );
 };
 
-export default Main;
+export default Checkin;

@@ -14,19 +14,6 @@ import Container from '@material-ui/core/Container';
 
 import {authService} from '../../../../fbase';
 
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -47,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AdminSignin() {
+export default function AdminSignin(props) {
   const classes = useStyles();
 
   const [email,setEmail] = useState("");
@@ -61,6 +48,8 @@ export default function AdminSignin() {
     try {
       let result = await authService.signInWithEmailAndPassword(email, password);
       console.log(result);
+      props.history.push('/admin')
+      
     } catch (error) {
       setError(error.message);
       alert(error);
@@ -122,7 +111,7 @@ export default function AdminSignin() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/admin/search" variant="body2">
                 비밀번호 찾기
               </Link>
             </Grid>

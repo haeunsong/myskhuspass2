@@ -76,8 +76,7 @@ export default function AdminSignup() {
       console.log(err);
 
     }
-      
-    
+         
   }
 
   return (

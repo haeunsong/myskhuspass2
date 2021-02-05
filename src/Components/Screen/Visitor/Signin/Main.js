@@ -48,9 +48,10 @@ export default function VisitorSignin() {
 
   const onSendNumber = () => {
     // 휴대폰으로 인증번호 전송
-
+    
     alert('인증번호가 전송되었습니다. 인증번호를 확인해주세요.')
   };
+  
   const onVisitorSigninClick = (e) => {
     e.preventDefault();
     console.log(phone,checkNumber,visitorName,major);

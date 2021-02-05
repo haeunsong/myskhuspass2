@@ -6,6 +6,9 @@ import Visitor from "../Screen/Visitor/Container/Main";
 import AdminSignin from "../Screen/Admin/Signin/Main";
 import AdminDashboard from "../Screen/Admin/Dashboard/Main";
 import AdminSignup from "../Screen/Admin/Signup/Main";
+import AdminSearch from "../Screen/Admin/Search/Main";
+import Checkin from "../Screen/Visitor/Checkin/Main";
+import VisitorSignin from "../Screen/Visitor/Signin/Main";
 
 const Main = () => {
   return (
@@ -17,6 +20,12 @@ const Main = () => {
       <Route path="/admin/login" component={AdminSignin} />
       <Route path="/admin/signup" component={AdminSignup} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/search" component={AdminSearch} />
+      
+      <Route path="/visitor/checkin" component={Checkin} />
+      <Route path="/visitor/signin" component={VisitorSignin} />
+
+
 
     </Switch>
     </BrowserRouter>
