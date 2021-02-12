@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 import { authService } from '../../../../fbase';
 
@@ -50,13 +51,13 @@ const Main = (props) => {
 
   if (loading) return <div>로딩중....</div>
   if (error) return <div>에러</div>
-  if (!areaList) return (
-    <>
-      <div>등록된 건물이 없습니다.</div>
-      <Button onClick={onLogoutHandler}>로그아웃</Button>
+  // if (!areaList) return (
+  //   <>
+  //     <div>등록된 건물이 없습니다.</div>
+  //     <Button onClick={onLogoutHandler}>로그아웃</Button>
 
-    </>
-  )
+  //   </>
+  // )
 
   const addAreaHandler = () => {
     
@@ -75,7 +76,7 @@ const Main = (props) => {
       </ul>
       <Button onClick={onLogoutHandler}>로그아웃</Button>
 
-      <Button onClick={addAreaHandler} >건물추가</Button>
+      <Link href="/admin/addarea" onClick={addAreaHandler} >건물추가</Link>
 
 
     </>
