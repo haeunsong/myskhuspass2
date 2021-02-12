@@ -53,9 +53,44 @@ export default function AdminSignup() {
   const [name,setName] = useState("");
   const [password,setPassword] = useState("");
   const [checkPassword,setCheckPassword] = useState("");
+  // const [areaList, setAreaList] = useState([]);
 
   const onAdminSignupClick = async () => {
     try{
+
+      // firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      //   // Send token to your backend via HTTPS
+      //   // ...
+      // }).catch(function(error) {
+      //   // Handle error
+      // });
+
+      // let idToken = await firebase.auth.currentuser.getIdToken(true);
+
+      // let result = await fetch('/user/adminsignup',{
+      //   method: "GET",
+      //   headers: { 'Firebase-ID-Token': idToken },
+      // })
+      // if(result.ok){
+      //   let items = await result.json();
+      //   setAreaList(items);
+        // [
+        //   {
+        //     "data": {
+        //       "admins": [
+        //         "string"
+        //       ],
+        //       "createdAt": "string",
+        //       "name": "string",
+        //       "owner": "string"
+        //     },
+        //     "id": "string"
+        //   }
+        // ]
+        
+      // }
+
+
       let result = await fetch('/user/adminsignup',{
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -74,9 +109,7 @@ export default function AdminSignup() {
       }
     }catch(err){
       console.log(err);
-
     }
-         
   }
 
   return (
@@ -86,7 +119,7 @@ export default function AdminSignup() {
         <Typography component="h1" variant="h5">
           건물 관리자 회원가입
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={classes.form}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -95,9 +128,7 @@ export default function AdminSignup() {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
                 label="학내메일로 가입"
-                name="email"
                 autoComplete="email"
               />
             </Grid>
@@ -108,10 +139,8 @@ export default function AdminSignup() {
                 variant="outlined"
                 required
                 fullWidth
-                name="name"
                 label="이름"
                 type="text"
-                id="name"
               />
             </Grid>
             <Grid item xs={12}>
@@ -121,10 +150,8 @@ export default function AdminSignup() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
                 label="사용할 비밀번호 입력"
                 type="password"
-                id="password"
               />
             </Grid>
             <Grid item xs={12}>
@@ -134,10 +161,8 @@ export default function AdminSignup() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
                 label="비밀번호 확인"
                 type="password"
-                id="password"
               />
             </Grid>
             <Grid item xs={12}>
@@ -164,7 +189,7 @@ export default function AdminSignup() {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
       <Box mt={5}>
         {/* <Copyright /> */}
