@@ -15,7 +15,22 @@ import Container from '@material-ui/core/Container';
 const AddArea = (props) => {
 
   const [areaName,setAreaName] = useState("");
+  const [areaList,setAreaList] = useState([]);
+  const [id,setId] = useState(1);
   
+
+
+  const onAddAreaHandler = () => {
+    const nextList = areaList.concat({areaName:areaName,id:id});
+    console.log(nextList);
+    
+    setAreaList(nextList);
+    setId(id+1);
+
+    console.log(areaList);
+
+
+  }
   return (
     <>
     <TextField 
@@ -27,9 +42,12 @@ const AddArea = (props) => {
       margin="normal"
       type="text"
     >
-
-
     </TextField>
+    <Button
+      variant="contained"
+      onClick={onAddAreaHandler}
+    >추가하기
+    </Button>
       
 
       
