@@ -1,15 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { authService } from '../../../../fbase';
+import AdminSignin from '../Signin/Main';
+import userInfo from '../Signin/Main';
+
+const useStyles = makeStyles({
+  title: {
+    // 제목 외의 요소들을 전부 오른쪽 정렬하기 위한 값 조절
+   flexGrow:1
+  },
+  text: {
+    marginRight:30,
+
+  },
+  button: {
+    color:'white'
+  }
+});
 
 const Main = (props) => {
+  const classes = useStyles();
+
+  const [email, setEmail] = useState();
   const [areaList, setAreaList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // setEmail(authService.currentUser);
+    var user = authService.currentUser;
+
+    if (user != null) {
+      setEmail(user.email);
+    }
+
     const getAreas = async () => {
       try {
         // 요청이 시작할 때는 error와 areas 초기화
@@ -60,13 +91,30 @@ const Main = (props) => {
   // )
 
   const addAreaHandler = () => {
-    
+
   }
+  const onSetupAccountHandler = () => {
+
+  }
+
+
 
   return (
     <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography className={classes.title} variant="h6">전체 건물 조회</Typography>
+          <Typography className={classes.text}>사용자 이메일: {email}</Typography>
+          <Button className={classes.button} onClick={onLogoutHandler}>로그아웃</Button>
+          <Button className={classes.button} onClick={onSetupAccountHandler} >계정설정</Button>
+          <Button className={classes.button} href="/admin/addarea" onClick={addAreaHandler} >건물추가</Button>
 
-      등록된 건물 목록 표시 화면(전체 건물 조회)
+        </Toolbar>
+      </AppBar>
+
+
+
+
       <ul>
         {/* {areaList.map(area => (
           <li key={area.id}>
@@ -74,9 +122,7 @@ const Main = (props) => {
           </li>
         ))} */}
       </ul>
-      <Button onClick={onLogoutHandler}>로그아웃</Button>
 
-      <Link href="/admin/addarea" onClick={addAreaHandler} >건물추가</Link>
 
 
     </>

@@ -58,39 +58,6 @@ export default function AdminSignup() {
   const onAdminSignupClick = async () => {
     try{
 
-      // firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-      //   // Send token to your backend via HTTPS
-      //   // ...
-      // }).catch(function(error) {
-      //   // Handle error
-      // });
-
-      // let idToken = await firebase.auth.currentuser.getIdToken(true);
-
-      // let result = await fetch('/user/adminsignup',{
-      //   method: "GET",
-      //   headers: { 'Firebase-ID-Token': idToken },
-      // })
-      // if(result.ok){
-      //   let items = await result.json();
-      //   setAreaList(items);
-        // [
-        //   {
-        //     "data": {
-        //       "admins": [
-        //         "string"
-        //       ],
-        //       "createdAt": "string",
-        //       "name": "string",
-        //       "owner": "string"
-        //     },
-        //     "id": "string"
-        //   }
-        // ]
-        
-      // }
-
-
       let result = await fetch('/user/adminsignup',{
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
