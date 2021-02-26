@@ -14,6 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -33,28 +36,59 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   send: {
-    alignItems:'center'
+    alignItems: 'center'
   }
 }));
 
 export default function VisitorSignin() {
-  //
   const classes = useStyles();
 
-  const [phone,setPhone] = useState("");
-  const [checkNumber,setCheckNumber] = useState("");
-  const [visitorName,setVisitorName] = useState("");
-  const [major,setMajor] = useState("");
+  const [phone, setPhone] = useState("");
+  const [checkNumber, setCheckNumber] = useState("");
+  const [visitorName, setVisitorName] = useState("");
+  const [major, setMajor] = useState("");
 
-  const onSendNumber = () => {
-    // 휴대폰으로 인증번호 전송
-    
-    alert('인증번호가 전송되었습니다. 인증번호를 확인해주세요.')
+  const setUpRecaptcha = () => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      'recaptcha-container',
+      {
+        'size': 'invisible',
+        'callback': (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          onSignInSubmit();
+        }
+      });
+
+  }
+  const onSignInSubmit = (e) => {
+    e.preventDefault();
+    setUpRecaptcha();
+    const phoneNumber = "+821012345678";
+    const appVerifier = window.recaptchaVerifier;
+    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        const code = window.prompt("Enter OTP");
+        confirmationResult.confirm(code).then((result) => {
+          // User signed in successfully.
+          const user = result.user;
+          console.log(user);
+          console.log("User is signed in");
+        }).catch((error) => {
+          console.log('error1')
+        });
+      }).catch((error) => {
+        // Error; SMS not sent
+        // ...
+        console.log('sms not sent');
+      });
   };
-  
+
   const onVisitorSigninClick = (e) => {
     e.preventDefault();
-    console.log(phone,checkNumber,visitorName,major);
+    console.log(phone, checkNumber, visitorName, major);
   }
 
   return (
@@ -64,12 +98,13 @@ export default function VisitorSignin() {
         <Typography component="h1" variant="h5">
           방문자 정보 입력
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form}>
           <Grid container spacing={2}>
+            <Grid id="recaptcha-container"></Grid>
             <Grid item xs={12}>
               <TextField
                 value={phone}
-                onChange={(e)=>setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value)}
                 variant="outlined"
                 required
                 fullWidth
@@ -79,18 +114,18 @@ export default function VisitorSignin() {
               />
             </Grid>
             <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={onSendNumber}
-            className={classes.send}
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.send}
+              onClick={onSignInSubmit}
             >
               인증번호 전송
             </Button>
             <Grid item xs={12}>
               <TextField
                 value={checkNumber}
-                onChange={(e)=>setCheckNumber(e.target.value)}
+                onChange={(e) => setCheckNumber(e.target.value)}
                 variant="outlined"
                 required
                 fullWidth
@@ -101,7 +136,7 @@ export default function VisitorSignin() {
             <Grid item xs={12}>
               <TextField
                 value={visitorName}
-                onChange={(e)=>setVisitorName(e.target.value)}
+                onChange={(e) => setVisitorName(e.target.value)}
                 variant="outlined"
                 required
                 fullWidth
@@ -114,7 +149,7 @@ export default function VisitorSignin() {
             <Grid item xs={12}>
               <TextField
                 value={major}
-                onChange={(e)=>setMajor(e.target.value)}
+                onChange={(e) => setMajor(e.target.value)}
                 variant="outlined"
                 required
                 fullWidth
@@ -144,7 +179,7 @@ export default function VisitorSignin() {
           <Grid item>
             <Link href="/admin/signin">
               관리자 로그인
-            </Link> 
+            </Link>
           </Grid>
         </form>
       </div>

@@ -7,9 +7,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { authService } from '../../../../fbase';
 import AdminSignin from '../Signin/Main';
 import userInfo from '../Signin/Main';
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const useStyles = makeStyles({
   title: {
@@ -33,7 +34,7 @@ const Main = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    var user = authService.currentUser;
+    var user = firebase.auth.currentUser;
 
     if (user != null) {
       setEmail(user.email);
@@ -44,7 +45,7 @@ const Main = (props) => {
         // 요청이 시작할 때는 error와 areas 초기화
         setError(null); setAreaList(null); setLoading(true);
 
-        let idToken = await authService.currentUser.getIdToken(true);
+        let idToken = await firebase.auth.currentUser.getIdToken(true);
 
         const result = await fetch('/area', {
           method: "GET",
@@ -68,7 +69,7 @@ const Main = (props) => {
 
   const onLogoutHandler = async () => {
     try {
-      let result = await authService.signOut();
+      let result = await firebase.auth.signOut();
       console.log(result);
       props.history.push('/admin');
 

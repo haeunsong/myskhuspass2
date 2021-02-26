@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { authService } from '../../../../fbase';
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,7 +47,7 @@ export default function AdminSignin(props) {
     console.log(email, password);
 
     try {
-      let result = await authService.signInWithEmailAndPassword(email, password);
+      let result = await firebase.auth.signInWithEmailAndPassword(email, password);
       console.log(result);
       props.history.push('/admin')
 
