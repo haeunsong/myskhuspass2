@@ -15,10 +15,11 @@ const Main = () => {
   return (
     <BrowserRouter>
     <Switch>
+      
       <Route exact path="/visitor" component={Visitor} />
-      <Route exact path="/admin" component={Admin} />
+      <Route exact path="/" component={Admin} />
 
-      <Route path="/admin/login" component={AdminSignin} />
+      <Route path="/admin/signin" component={AdminSignin} />
       <Route path="/admin/signup" component={AdminSignup} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route path="/admin/search" component={AdminSearch} />

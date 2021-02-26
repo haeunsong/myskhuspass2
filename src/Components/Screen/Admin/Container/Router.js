@@ -16,7 +16,7 @@ const ContainerRouter = ({ isLoggedIn }) => {
         ) : (
           // 로그인화면으로
           <>
-            <Redirect to="/admin/login" />
+            <Redirect to="/visitor/signin" />
 
           </>
 

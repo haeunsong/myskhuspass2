@@ -141,6 +141,11 @@ export default function VisitorSignin() {
           >
             완료
           </Button>
+          <Grid item>
+            <Link href="/admin/signin">
+              관리자 로그인
+            </Link> 
+          </Grid>
         </form>
       </div>
       <Box mt={5}>

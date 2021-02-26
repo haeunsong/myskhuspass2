@@ -13,7 +13,6 @@ import userInfo from '../Signin/Main';
 
 const useStyles = makeStyles({
   title: {
-    // 제목 외의 요소들을 전부 오른쪽 정렬하기 위한 값 조절
    flexGrow:1
   },
   text: {
@@ -34,7 +33,6 @@ const Main = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // setEmail(authService.currentUser);
     var user = authService.currentUser;
 
     if (user != null) {

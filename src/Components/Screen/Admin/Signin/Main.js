@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import {authService} from '../../../../fbase';
+import { authService } from '../../../../fbase';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,27 +38,27 @@ const useStyles = makeStyles((theme) => ({
 export default function AdminSignin(props) {
   const classes = useStyles();
 
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [error,setError] = useState("");
-  
-  const onAdminLoginHandler =  async(email,password) => {
-    console.log(email,password);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const onAdminLoginHandler = async (email, password) => {
+    console.log(email, password);
 
     try {
       let result = await authService.signInWithEmailAndPassword(email, password);
       console.log(result);
       props.history.push('/admin')
-      
+
     } catch (error) {
       setError(error.message);
       alert(error);
     }
-   
+
   }
   const onAdminLoginClick = (e) => {
     e.preventDefault();
-    onAdminLoginHandler(email,password)
+    onAdminLoginHandler(email, password)
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -70,7 +70,7 @@ export default function AdminSignin(props) {
         <form className={classes.form} noValidate >
           <TextField
             value={email}
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             variant="outlined"
             margin="normal"
             required
@@ -80,11 +80,11 @@ export default function AdminSignin(props) {
             name="email"
             autoComplete="email"
             autoFocus
-            
+
           />
           <TextField
             value={password}
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             variant="outlined"
             margin="normal"
             required
