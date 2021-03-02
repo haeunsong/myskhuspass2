@@ -77,6 +77,8 @@ export default function VisitorSignin(props) {
           const user = result.user;
           console.log(user);
           console.log("User is signed in");
+          alert('정상적으로 인증되었습니다.')
+          props.history.push('/visitor/user/myinfo');
         }).catch((error) => {
           console.log('error1')
         });
