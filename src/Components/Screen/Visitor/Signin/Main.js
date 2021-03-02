@@ -1,4 +1,3 @@
-// 방문자 개인정보 입력화면
 
 import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
@@ -58,12 +57,13 @@ export default function VisitorSignin() {
           onSignInSubmit();
         }
       });
+    
 
   }
   const onSignInSubmit = (e) => {
     e.preventDefault();
     setUpRecaptcha();
-    const phoneNumber = "+821012345678";
+    const phoneNumber = "+11234567890";
     const appVerifier = window.recaptchaVerifier;
     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {
@@ -86,15 +86,32 @@ export default function VisitorSignin() {
       });
   };
 
+  // const onSignInSubmit = () => {
+  //   let recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha');
+  //   let number = '+821066035404';
+  //   firebase.auth().signInWithPhoneNumber(number,recaptcha).then(function(e){
+  //     let code = prompt('enter the otp','');
+  //     if(code==null)return;
+  //     e.confirm(code).then(function(result){
+  //       console.log(result.user,'user');
+  //       document.querySelector('label').textContent = result.user.phoneNumber + "Number verified";
+  //     }).catch((err)=>{
+  //       console.log(err);
+  //     })
+  //   })
+  // }
+
   const onVisitorSigninClick = (e) => {
     e.preventDefault();
     console.log(phone, checkNumber, visitorName, major);
   }
 
   return (
+  
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+        <label></label>
         <Typography component="h1" variant="h5">
           방문자 정보 입력
         </Typography>
