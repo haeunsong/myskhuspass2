@@ -47,9 +47,9 @@ export default function AdminSignin(props) {
     console.log(email, password);
 
     try {
-      let result = await firebase.auth.signInWithEmailAndPassword(email, password);
+      let result = await firebase.auth().signInWithEmailAndPassword(email, password);
       console.log(result);
-      props.history.push('/admin')
+      props.history.push('/admin/dashboard')
 
     } catch (error) {
       setError(error.message);

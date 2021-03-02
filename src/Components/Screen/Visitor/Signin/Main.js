@@ -39,10 +39,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function VisitorSignin() {
+export default function VisitorSignin(props) {
   const classes = useStyles();
 
-  const [phone, setPhone] = useState("");
+  const [userPhoneNumber, setUserPhoneNumber] = useState("");
   const [checkNumber, setCheckNumber] = useState("");
   const [visitorName, setVisitorName] = useState("");
   const [major, setMajor] = useState("");
@@ -57,13 +57,14 @@ export default function VisitorSignin() {
           onSignInSubmit();
         }
       });
-    
+
 
   }
   const onSignInSubmit = (e) => {
     e.preventDefault();
     setUpRecaptcha();
-    const phoneNumber = "+11234567890";
+    const phoneNumber = userPhoneNumber;
+    console.log(phoneNumber);
     const appVerifier = window.recaptchaVerifier;
     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {
@@ -82,6 +83,7 @@ export default function VisitorSignin() {
       }).catch((error) => {
         // Error; SMS not sent
         // ...
+        console.log(error);
         console.log('sms not sent');
       });
   };
@@ -103,25 +105,52 @@ export default function VisitorSignin() {
 
   const onVisitorSigninClick = (e) => {
     e.preventDefault();
-    console.log(phone, checkNumber, visitorName, major);
+    props.history.push('/visitor/user/myinfo');
+
   }
 
   return (
-  
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <label></label>
         <Typography component="h1" variant="h5">
-          방문자 정보 입력
+          방문자 로그인
         </Typography>
         <form className={classes.form}>
           <Grid container spacing={2}>
-            <Grid id="recaptcha-container"></Grid>
             <Grid item xs={12}>
               <TextField
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={visitorName}
+                onChange={(e) => setVisitorName(e.target.value)}
+                variant="outlined"
+                required
+                fullWidth
+                name="visitorname"
+                label="이름"
+                type="text"
+                id="visitorname"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                value={major}
+                onChange={(e) => setMajor(e.target.value)}
+                variant="outlined"
+                required
+                fullWidth
+                name="major"
+                label="학과(학부)"
+                type="text"
+                id="major"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Grid id="recaptcha-container"></Grid>
+              <TextField
+                value={userPhoneNumber}
+                onChange={(e) => setUserPhoneNumber(e.target.value)}
                 variant="outlined"
                 required
                 fullWidth
@@ -150,32 +179,7 @@ export default function VisitorSignin() {
                 label="인증번호(8자리)"
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                value={visitorName}
-                onChange={(e) => setVisitorName(e.target.value)}
-                variant="outlined"
-                required
-                fullWidth
-                name="visitorname"
-                label="이름"
-                type="text"
-                id="visitorname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                value={major}
-                onChange={(e) => setMajor(e.target.value)}
-                variant="outlined"
-                required
-                fullWidth
-                name="major"
-                label="학과(학부)"
-                type="text"
-                id="major"
-              />
-            </Grid>
+
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}

@@ -10,6 +10,7 @@ import AdminSearch from "../Screen/Admin/Search/Main";
 import AddArea from "../Screen/Admin/Dashboard/AddArea";
 import Checkin from "../Screen/Visitor/Checkin/Main";
 import VisitorSignin from "../Screen/Visitor/Signin/Main";
+import VisitorMyInfo from "../Screen/Visitor/User/Main";
 
 const Main = () => {
   return (
@@ -27,6 +28,7 @@ const Main = () => {
       
       <Route path="/visitor/checkin" component={Checkin} />
       <Route path="/visitor/signin" component={VisitorSignin} />
+      <Route path="/visitor/user/myinfo" component={VisitorMyInfo} />
 
 
 

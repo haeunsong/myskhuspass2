@@ -7,8 +7,12 @@ import "firebase/auth";
 const Main = () => {
   const [init,setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isAdmin,setIsAdmin] = useState(false);
+
+
 
   useEffect(()=> {
+    
     firebase.auth().onAuthStateChanged((user) => {
       if(user){
         setIsLoggedIn(true);
@@ -19,11 +23,12 @@ const Main = () => {
 
     })
 
+
   },[])
 
   return (
     <>
-    {init ? <ContainerRouter isLoggedIn={isLoggedIn} /> : "Initializing.."};
+    {init ? <ContainerRouter isLoggedIn={isLoggedIn}/> : "Initializing.."};
     </>
   )
 };

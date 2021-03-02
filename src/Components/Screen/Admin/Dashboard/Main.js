@@ -34,7 +34,7 @@ const Main = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    var user = firebase.auth.currentUser;
+    var user = firebase.auth().currentUser;
 
     if (user != null) {
       setEmail(user.email);
@@ -45,7 +45,7 @@ const Main = (props) => {
         // 요청이 시작할 때는 error와 areas 초기화
         setError(null); setAreaList(null); setLoading(true);
 
-        let idToken = await firebase.auth.currentUser.getIdToken(true);
+        let idToken = await firebase.auth().currentUser.getIdToken(true);
 
         const result = await fetch('/area', {
           method: "GET",
@@ -69,9 +69,9 @@ const Main = (props) => {
 
   const onLogoutHandler = async () => {
     try {
-      let result = await firebase.auth.signOut();
+      let result = await firebase.auth().signOut();
       console.log(result);
-      props.history.push('/admin');
+      props.history.push('/');
 
     } catch (err) {
       alert(err);
@@ -80,15 +80,14 @@ const Main = (props) => {
   }
 
   if (loading) return <div>로딩중....</div>
-  if (error) return <div>에러</div>
-  // if (!areaList) return (
-  //   <>
-  //     <div>등록된 건물이 없습니다.</div>
-  //     <Button onClick={onLogoutHandler}>로그아웃</Button>
+  // if (error){alert(error)} return <div>에러</div>
+  if (!areaList) return (
+    <>
+      <div>등록된 건물이 없습니다.</div>
+      <Button onClick={onLogoutHandler}>로그아웃</Button>
 
-  //   </>
-  // )
-
+    </>
+  )
   const addAreaHandler = () => {
 
   }
